@@ -4,6 +4,7 @@ import mcfx.ui.event.ActionEvent;
 import mcfx.ui.listener.ActionListener;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,7 @@ implements MWidget{
     protected MWidget parent;
     protected Rectangle bounds = new Rectangle();
     protected Dimension preferredSize = new Dimension(128, 16);
+    protected Point loc = new Point(0, 0);
     protected float zLevel = 0;
     protected boolean focused = false;
 
@@ -66,6 +68,30 @@ implements MWidget{
 
     public final Rectangle geomentry(){
         return this.bounds;
+    }
+
+    public final void setSize(int width, int height){
+        this.setGeometry(this.geomentry().x, this.geomentry().y, width, height);
+    }
+
+    public final Dimension getSize(){
+        return new Dimension(this.geomentry().width, this.geomentry().height);
+    }
+
+    public void setPosition(int x, int y){
+        this.setGeometry(x, y, this.geomentry().width, this.geomentry().height);
+    }
+
+    public void setXY(int x, int y){
+        this.loc.setLocation(x, y);
+    }
+
+    public final int getX(){
+        return this.loc.x;
+    }
+
+    public final int getY(){
+        return this.loc.y;
     }
 
     @Override

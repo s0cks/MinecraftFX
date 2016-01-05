@@ -22,6 +22,7 @@ extends MComponent{
         this.width = image.getWidth();
         this.height = image.getHeight();
         this.imageLoc = FMLClientHandler.instance().getClient().getTextureManager().getDynamicTextureLocation("mcfx", new DynamicTexture(image));
+        this.setPreferredSize(image.getWidth(), image.getHeight());
     }
 
     public int getWidth(){

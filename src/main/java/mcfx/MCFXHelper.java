@@ -21,7 +21,7 @@ public final class MCFXHelper{
     }
 
     public static void bindColor(Color c){
-        GlStateManager.color(c.getRed() / 255, c.getGreen() / 255, c.getBlue() / 255, c.getAlpha() / 255);
+        GlStateManager.color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
     }
 
     public static float fontWidth(String str){

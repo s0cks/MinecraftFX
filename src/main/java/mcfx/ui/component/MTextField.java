@@ -15,11 +15,13 @@ extends MComponent{
     public MTextField(int width){
         this.text = "";
         this.width = (int) MCFXDecoratorEngine.get().font().getWidth(width);
+        this.setPreferredSize(128, 32);
     }
 
     public MTextField(String text){
         this.text = text;
         this.width = (int) MCFXDecoratorEngine.get().font().getWidth(text);
+        this.setPreferredSize(128, 32);
     }
 
     public int width(){

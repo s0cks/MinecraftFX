@@ -7,7 +7,13 @@ public abstract class MLayout{
         this.container = container;
     }
 
+    public void addComponent(MComponent comp, Object... flags){
+        this.container.addComponent(comp);
+    }
+
     public void addComponent(MComponent comp){
         this.container.addComponent(comp);
     }
+
+    public void layout(){}
 }
