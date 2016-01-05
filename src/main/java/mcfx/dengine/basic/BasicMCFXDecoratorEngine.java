@@ -6,10 +6,8 @@ import mcfx.Versioned;
 import mcfx.dengine.basic.decorator.BasicMCFXButtonDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXImageDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXToggleButtonDecorator;
-import mcfx.ui.component.MButton;
 import truetyper.TrueTypeFont;
 
-import java.awt.Color;
 import java.awt.Font;
 
 @Named("Basic")
@@ -20,12 +18,10 @@ extends MCFXDecoratorEngine{
 
     @Override
     public void init() {
-        this.addProperty("mcfx.font", new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12), true))
-            .addProperty(MButton.BG_COLOR, Color.BLACK)
-            .addProperty(MButton.FG_COLOR, Color.WHITE);
+        this.addProperty("mcfx.font", new TrueTypeFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12), true));
 
-        this.addDecorator(BasicMCFXButtonDecorator.class);
-        this.addDecorator(BasicMCFXToggleButtonDecorator.class);
-        this.addDecorator(BasicMCFXImageDecorator.class);
+        this.addDecorator(BasicMCFXButtonDecorator.class)
+            .addDecorator(BasicMCFXToggleButtonDecorator.class)
+            .addDecorator(BasicMCFXImageDecorator.class);
     }
 }

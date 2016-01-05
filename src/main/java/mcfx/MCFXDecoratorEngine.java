@@ -92,6 +92,10 @@ public abstract class MCFXDecoratorEngine{
         return (T) this.properties.get(name);
     }
 
+    public final <T> T getProperty(String name, T def){
+        return this.properties.containsKey(name) ? (T) this.properties.get(name) : def;
+    }
+
     public final <T extends MComponent> MCFXDecorator<T> getDecorator(String name, Class<? extends T> tClasss){
         return (MCFXDecorator<T>) this.decorators.get(name);
     }

@@ -45,4 +45,11 @@ public final class MCFXHelper{
         tess.draw();
         GlStateManager.enableTexture2D();
     }
+
+    public static Color complement(Color c){
+        return new Color(255 - c.getRed(),
+                         255 - c.getGreen(),
+                         255 - c.getBlue(),
+                         c.getAlpha());
+    }
 }

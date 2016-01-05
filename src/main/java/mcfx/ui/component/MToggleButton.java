@@ -8,9 +8,17 @@ import mcfx.ui.event.ActionEvent;
 import mcfx.ui.listener.ActionListener;
 import mcfx.ui.model.ToggleButtonModel;
 
+import java.awt.Color;
+
 @Named(MCFXDecorator.TOGGLE_BUTTON)
 public class MToggleButton
 extends MButton{
+    public static final String BACKGROUND = "mcfx.toggle_button.bg";
+    public static final String FOREGROUND = "mcfx.toggle_button.fg";
+
+    private Color bg = MCFXDecoratorEngine.get().getProperty(BACKGROUND, Color.BLACK);
+    private Color fg = MCFXDecoratorEngine.get().getProperty(FOREGROUND, Color.WHITE);
+
     public MToggleButton(String lbl){
         super(lbl);
         this.model = new ToggleButtonModel();

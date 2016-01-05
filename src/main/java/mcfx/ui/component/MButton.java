@@ -16,15 +16,15 @@ import java.awt.Insets;
 @Named(MCFXDecorator.BUTTON)
 public class MButton
 extends MComponent {
-    public static final String BG_COLOR = "mcfx.button.bg";
-    public static final String FG_COLOR = "mcfx.button.fg";
+    public static final String BACKGROUND = "mcfx.button.bg";
+    public static final String FOREGROUND = "mcfx.button.fg";
 
     private final Insets insets = new Insets(5, 5, 5, 5);
 
     protected AbstractButtonModel model = new ButtonModel();
 
-    private Color background = MCFXDecoratorEngine.get().getProperty(BG_COLOR);
-    private Color foreground = MCFXDecoratorEngine.get().getProperty(FG_COLOR);
+    private Color background = MCFXDecoratorEngine.get().getProperty(BACKGROUND, Color.BLACK);
+    private Color foreground = MCFXDecoratorEngine.get().getProperty(FOREGROUND, Color.WHITE);
     private String label;
 
     public MButton(){

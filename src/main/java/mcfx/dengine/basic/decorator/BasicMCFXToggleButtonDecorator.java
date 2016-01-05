@@ -6,7 +6,6 @@ import mcfx.Named;
 import mcfx.ui.RenderContext;
 import mcfx.ui.component.MToggleButton;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
@@ -26,7 +25,7 @@ implements MCFXDecorator<MToggleButton>{
     @Override
     public void paint(RenderContext ctx, MToggleButton mToggleButton) {
         Rectangle geom = mToggleButton.geomentry();
-        ctx.setColor(mToggleButton.model().isActive() ? Color.WHITE : mToggleButton.getBackground())
+        ctx.setColor(mToggleButton.model().isActive() ? MCFXHelper.complement(mToggleButton.getBackground()) : mToggleButton.getBackground())
            .setZLevel(mToggleButton.getZLevel())
            .drawRectangle(geom);
 
@@ -35,7 +34,7 @@ implements MCFXDecorator<MToggleButton>{
             int y = geom.y + mToggleButton.getInsets().top;
             x += ((geom.width - MCFXHelper.fontWidth(mToggleButton.text())) / 2);
             y += ((geom.height - MCFXHelper.fontHeight()) / 2);
-            MCFXHelper.drawString(mToggleButton.text(), x, y, mToggleButton.model().isActive() ? Color.BLACK: mToggleButton.getForeground());
+            MCFXHelper.drawString(mToggleButton.text(), x, y, mToggleButton.model().isActive() ? MCFXHelper.complement(mToggleButton.getForeground()) : mToggleButton.getForeground());
         }
     }
 }
