@@ -6,7 +6,6 @@ import mcfx.Named;
 import mcfx.ui.RenderContext;
 import mcfx.ui.component.MButton;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
@@ -26,7 +25,7 @@ implements MCFXDecorator<MButton>{
     @Override
     public void paint(RenderContext ctx, MButton mButton) {
         Rectangle geom = mButton.geomentry();
-        ctx.setColor(mButton.model().isClicked() ? Color.WHITE : mButton.getBackground())
+        ctx.setColor(mButton.model().isClicked() ? MCFXHelper.complement(mButton.getBackground()) : mButton.getBackground())
            .setZLevel(mButton.getZLevel())
            .drawRectangle(geom);
 
@@ -35,7 +34,7 @@ implements MCFXDecorator<MButton>{
             int y = geom.y + mButton.getInsets().top;
             x += ((geom.width - MCFXHelper.fontWidth(mButton.text())) / 2);
             y += ((geom.height - MCFXHelper.fontHeight()) / 2);
-            MCFXHelper.drawString(mButton.text(), x, y, mButton.model().isClicked() ? Color.BLACK: mButton.getForeground());
+            MCFXHelper.drawString(mButton.text(), x, y, mButton.model().isClicked() ? MCFXHelper.complement(mButton.getForeground()) : mButton.getForeground());
         }
     }
 }

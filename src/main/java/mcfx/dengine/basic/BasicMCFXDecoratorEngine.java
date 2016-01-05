@@ -5,6 +5,7 @@ import mcfx.Named;
 import mcfx.Versioned;
 import mcfx.dengine.basic.decorator.BasicMCFXButtonDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXImageDecorator;
+import mcfx.dengine.basic.decorator.BasicMCFXTextFieldDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXToggleButtonDecorator;
 import truetyper.TrueTypeFont;
 
@@ -22,6 +23,7 @@ extends MCFXDecoratorEngine{
 
         this.addDecorator(BasicMCFXButtonDecorator.class)
             .addDecorator(BasicMCFXToggleButtonDecorator.class)
-            .addDecorator(BasicMCFXImageDecorator.class);
+            .addDecorator(BasicMCFXImageDecorator.class)
+            .addDecorator(BasicMCFXTextFieldDecorator.class);
     }
 }

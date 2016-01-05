@@ -2,20 +2,28 @@ package mcfx.ui.component;
 
 import mcfx.MCFXDecorator;
 import mcfx.MCFXDecoratorEngine;
+import mcfx.Named;
 import mcfx.ui.MComponent;
 import mcfx.ui.RenderContext;
 
+@Named(MCFXDecorator.TEXT_FIELD)
 public final class MTextField
 extends MComponent{
     private String text;
+    private int width;
 
-    public MTextField(){
-        this("");
+    public MTextField(int width){
+        this.text = "";
+        this.width = (int) MCFXDecoratorEngine.get().font().getWidth(width);
     }
 
     public MTextField(String text){
         this.text = text;
-        MCFXDecoratorEngine.get().getDecorator(MCFXDecorator.TEXT_FIELD, MTextField.class).init(this);
+        this.width = (int) MCFXDecoratorEngine.get().font().getWidth(text);
+    }
+
+    public int width(){
+        return this.width;
     }
 
     public final String text(){
