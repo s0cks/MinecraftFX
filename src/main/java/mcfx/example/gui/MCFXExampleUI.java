@@ -9,6 +9,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.imageio.ImageIO;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -18,8 +20,12 @@ extends MFrame {
     private static final BufferedImage img;
     static{
         try{
-            img = ImageIO.read(new URL("http://screenshots.en.sftcdn.net/en/scrn/189000/189271/minecraft-10-700x393.jpg"));
+            BufferedImage tmp = ImageIO.read(new URL("http://screenshots.en.sftcdn.net/en/scrn/189000/189271/minecraft-10-700x393.jpg"));
+            img = new BufferedImage(128, 64, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = img.getGraphics();
+            g.drawImage(tmp.getScaledInstance(128, 64, Image.SCALE_SMOOTH), 0, 0, 128, 64, null);
         } catch(Exception e){
+            e.printStackTrace(System.err);
             throw new RuntimeException(e);
         }
     }

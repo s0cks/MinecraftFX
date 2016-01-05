@@ -4,13 +4,11 @@ import mcfx.MCFXHelper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 public final class RenderContext{
     private final Tessellator tess = Tessellator.getInstance();
@@ -37,21 +35,16 @@ public final class RenderContext{
         return this;
     }
 
-    public RenderContext drawImage(BufferedImage image, int x, int y, int width, int height){
-        DynamicTexture texture = new DynamicTexture(image);
-        ResourceLocation textureLoc = FMLClientHandler.instance().getClient().getTextureManager().getDynamicTextureLocation("mcfx", texture);
-        FMLClientHandler.instance().getClient().getTextureManager().bindTexture(textureLoc);
+    public RenderContext drawImage(ResourceLocation loc, int x, int y, int width, int height){
         this.rend.startDrawingQuads();
+        MCFXHelper.bindColor(this.color);
+        FMLClientHandler.instance().getClient().getTextureManager().bindTexture(loc);
         this.rend.addVertexWithUV(this.x + x, this.y + y + height, this.zLevel, 0, 1);
         this.rend.addVertexWithUV(this.x + x + width, this.y + y + height, this.zLevel, 1, 1);
         this.rend.addVertexWithUV(this.x + x + width, this.y + y, this.zLevel, 1, 0);
         this.rend.addVertexWithUV(this.x + x, this.y + y, this.zLevel, 0, 0);
         this.tess.draw();
         return this;
-    }
-
-    public RenderContext drawImage(BufferedImage image, int x, int y){
-        return this.drawImage(image, x, y, image.getWidth(), image.getHeight());
     }
 
     public RenderContext translate(float x, float y){
