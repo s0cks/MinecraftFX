@@ -1,5 +1,7 @@
 package mcfx.ui;
 
+import mcfx.MCFXDecoratorEngine;
+import mcfx.Named;
 import mcfx.ui.event.ActionEvent;
 import mcfx.ui.layout.MAbsoluteLayout;
 import net.minecraft.client.gui.GuiScreen;
@@ -12,6 +14,7 @@ public class MFrame
 extends GuiScreen
 implements MContainer,
            MWidget{
+
     private final List<MComponent> children = new LinkedList<>();
     private MLayout layout = new MAbsoluteLayout(this);
     private RenderContext ctx = new RenderContext();
@@ -58,6 +61,10 @@ implements MContainer,
     public void addComponent(MComponent comp) {
         comp.setParent(this);
         comp.setZLevel(this.zLevel + 1);
+        if(!comp.getClass().isAnnotationPresent(Named.class)){
+            throw new IllegalStateException("MComponents need @Named above them");
+        }
+        MCFXDecoratorEngine.get().getDecorator(comp.getClass().getAnnotation(Named.class).value(), comp.getClass()).init(comp);
         this.children.add(comp);
     }
 

@@ -18,6 +18,10 @@ implements MWidget{
     protected float zLevel = 0;
     protected boolean focused = false;
 
+    protected MComponent(){
+        this.bounds.setBounds(0, 0, this.preferredSize.width, this.preferredSize.height);
+    }
+
     public final void addActionListener(ActionListener listener){
         this.listeners.add(listener);
     }

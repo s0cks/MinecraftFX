@@ -4,6 +4,7 @@ import mcfx.MCFXDecoratorEngine;
 import mcfx.Named;
 import mcfx.Versioned;
 import mcfx.dengine.basic.decorator.BasicMCFXButtonDecorator;
+import mcfx.dengine.basic.decorator.BasicMCFXToggleButtonDecorator;
 import mcfx.ui.component.MButton;
 import truetyper.TrueTypeFont;
 
@@ -23,5 +24,6 @@ extends MCFXDecoratorEngine{
             .addProperty(MButton.FG_COLOR, Color.WHITE);
 
         this.addDecorator(BasicMCFXButtonDecorator.class);
+        this.addDecorator(BasicMCFXToggleButtonDecorator.class);
     }
 }

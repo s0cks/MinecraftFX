@@ -5,8 +5,6 @@ import mcfx.MCFXHelper;
 import mcfx.Named;
 import mcfx.ui.RenderContext;
 import mcfx.ui.component.MButton;
-import mcfx.ui.event.ActionEvent;
-import mcfx.ui.listener.ActionListener;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,13 +15,6 @@ public final class BasicMCFXButtonDecorator
 implements MCFXDecorator<MButton>{
     @Override
     public void init(final MButton mButton) {
-        mButton.addActionListener(new ActionListener() {
-            @Override
-            public void on(ActionEvent e) {
-                mButton.model().setClicked(!e.released);
-            }
-        });
-
         Dimension preferred = mButton.getPreferredSize();
         int x = mButton.geomentry().x;
         int y = mButton.geomentry().y;
