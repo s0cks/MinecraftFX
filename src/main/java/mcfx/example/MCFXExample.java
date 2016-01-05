@@ -25,6 +25,7 @@ implements IGuiHandler{
     static{
         try{
             Class.forName("mcfx.MCFXDecoratorEngine");
+            Class.forName("mcfx.example.gui.MCFXExampleUI");
         } catch(Exception e){
             throw new RuntimeException(e);
         }

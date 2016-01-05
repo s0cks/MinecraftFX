@@ -54,6 +54,10 @@ implements MContainer,
 
     @Override
     public void add(MComponent comp) {
+        if(!comp.getClass().isAnnotationPresent(Named.class)){
+            throw new IllegalStateException("MComponents need @Named above them");
+        }
+        MCFXDecoratorEngine.get().getDecorator(comp.getClass().getAnnotation(Named.class).value(), comp.getClass()).init(comp);
         this.layout.addComponent(comp);
     }
 
@@ -61,10 +65,6 @@ implements MContainer,
     public void addComponent(MComponent comp) {
         comp.setParent(this);
         comp.setZLevel(this.zLevel + 1);
-        if(!comp.getClass().isAnnotationPresent(Named.class)){
-            throw new IllegalStateException("MComponents need @Named above them");
-        }
-        MCFXDecoratorEngine.get().getDecorator(comp.getClass().getAnnotation(Named.class).value(), comp.getClass()).init(comp);
         this.children.add(comp);
     }
 
