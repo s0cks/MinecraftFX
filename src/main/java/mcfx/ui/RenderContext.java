@@ -1,10 +1,12 @@
 package mcfx.ui;
 
+import mcfx.MCFXDecoratorEngine;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import truetyper.FontHelper;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -78,6 +80,28 @@ public final class RenderContext{
 
     public RenderContext setColor(Color c){
         this.color = c;
+        return this;
+    }
+
+    public RenderContext drawString(String str){
+        float[] color;
+        if(this.color != null){
+            color = new float[]{
+                    this.color.getRed() / 255,
+                    this.color.getGreen() / 255,
+                    this.color.getBlue() / 255,
+                    this.color.getAlpha() / 255
+            };
+        } else{
+            color = new float[]{
+                    1.0F,
+                    1.0F,
+                    1.0F,
+                    1.0F
+            };
+        }
+
+        FontHelper.drawString(str, this.x, this.y, MCFXDecoratorEngine.get().font(), 1.0F, 1.0F, color);
         return this;
     }
 }

@@ -4,6 +4,7 @@ import mcfx.MCFXDecoratorEngine;
 import mcfx.Named;
 import mcfx.Versioned;
 import mcfx.dengine.basic.decorator.BasicMCFXButtonDecorator;
+import mcfx.dengine.basic.decorator.BasicMCFXEntityDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXImageDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXItemStackDecorator;
 import mcfx.dengine.basic.decorator.BasicMCFXPanelDecorator;
@@ -28,6 +29,7 @@ extends MCFXDecoratorEngine{
             .addDecorator(BasicMCFXImageDecorator.class)
             .addDecorator(BasicMCFXTextFieldDecorator.class)
             .addDecorator(BasicMCFXPanelDecorator.class)
-            .addDecorator(BasicMCFXItemStackDecorator.class);
+            .addDecorator(BasicMCFXItemStackDecorator.class)
+            .addDecorator(BasicMCFXEntityDecorator.class);
     }
 }

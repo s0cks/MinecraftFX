@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Rectangle;
@@ -26,6 +27,7 @@ implements MContainer,
     private RenderContext ctx = new RenderContext();
     private Rectangle bounds = new Rectangle(0, 0, MCFXHelper.getMinecraftWidth() / 3, MCFXHelper.getMinecraftHeight() / 3);
     private Insets insets = new Insets(0, 0, 0, 0);
+    private String title;
 
     public void setLayout(MLayout layout){
         this.layout = layout;
@@ -170,9 +172,27 @@ implements MContainer,
         return this.bounds.y + this.insets.top;
     }
 
-    public void paint(RenderContext ctx){}
+    public void paint(RenderContext ctx){
+        ctx.translate(this.geometry().x, this.geometry().y - (MCFXHelper.fontHeight() / 2))
+           .setColor(Color.LIGHT_GRAY)
+           .drawRectangle(new Rectangle(0, 0, this.geometry().width, (int) (MCFXHelper.fontHeight() / 2) + 3))
+           .setColor(Color.BLACK)
+           .drawString(this.title == null ? "Window" : this.title)
+           .reset();
+        ctx.setColor(Color.CYAN)
+           .setZLevel(this.zLevel)
+           .drawRectangle(this.geometry());
+    }
 
     public final Rectangle geometry(){
         return this.bounds;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

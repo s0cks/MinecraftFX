@@ -2,12 +2,13 @@ package mcfx.example.gui;
 
 import mcfx.ui.Location;
 import mcfx.ui.MFrame;
-import mcfx.ui.RenderContext;
+import mcfx.ui.component.MEntity;
+import mcfx.ui.layout.MBorderLayout;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.imageio.ImageIO;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -30,13 +31,9 @@ extends MFrame {
     }
 
     public MCFXExampleUI(){
+        this.setTitle("This is a window title");
+        this.setLayout(new MBorderLayout(this));
         this.setLocation(Location.CENTER);
-    }
-
-    @Override
-    public void paint(RenderContext ctx){
-        ctx.setColor(Color.CYAN)
-           .setZLevel(this.zLevel)
-           .drawRectangle(this.geometry());
+        this.add(new MEntity(FMLClientHandler.instance().getClientPlayerEntity()), MBorderLayout.CENTER);
     }
 }
