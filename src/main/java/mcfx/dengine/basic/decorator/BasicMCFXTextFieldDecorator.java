@@ -15,8 +15,7 @@ public final class BasicMCFXTextFieldDecorator
 implements MCFXDecorator<MTextField>{
     @Override
     public void init(MTextField mTextField) {
-        Rectangle geo = mTextField.geomentry();
-        mTextField.setGeometry(geo.x, geo.y, mTextField.width(), (int) MCFXDecoratorEngine.get().font().getHeight());
+        mTextField.setPreferredSize(Math.max(mTextField.width(), mTextField.getPreferredSize().width), Math.max((int) MCFXDecoratorEngine.get().font().getHeight(), mTextField.getPreferredSize().height));
     }
 
     @Override

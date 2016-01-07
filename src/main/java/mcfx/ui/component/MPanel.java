@@ -2,15 +2,17 @@ package mcfx.ui.component;
 
 import mcfx.MCFXDecorator;
 import mcfx.MCFXDecoratorEngine;
+import mcfx.MCFXHelper;
 import mcfx.Named;
 import mcfx.ui.MComponent;
 import mcfx.ui.MContainer;
 import mcfx.ui.MLayout;
 import mcfx.ui.RenderContext;
-import mcfx.ui.layout.MVBoxLayout;
-import net.minecraftforge.fml.client.FMLClientHandler;
+import mcfx.ui.event.ActionEvent;
+import mcfx.ui.layout.MBorderLayout;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,13 +27,24 @@ implements MContainer{
     private Color bg = MCFXDecoratorEngine.get().getProperty(BACKGROUND, Color.DARK_GRAY);
 
     public MPanel(){
-        this.layout = new MVBoxLayout(this);
-        this.setPreferredSize(FMLClientHandler.instance().getClient().displayWidth / 4, FMLClientHandler.instance().getClient().displayHeight / 4);
+        this.layout = new MBorderLayout(this);
+        Dimension prefDim = MCFXHelper.getPreferredMaxSize();
+        this.setPreferredSize(prefDim.width, prefDim.height);
     }
 
     public MPanel(MLayout layout){
-        this.setPreferredSize(FMLClientHandler.instance().getClient().displayWidth / 4, FMLClientHandler.instance().getClient().displayHeight / 4);
         this.layout = layout;
+        Dimension prefDim = MCFXHelper.getPreferredMaxSize();
+        this.setPreferredSize(prefDim.width, prefDim.height);
+    }
+
+    @Override
+    public void onAction(ActionEvent e) {
+        for(MComponent comp : this.children){
+            if(comp.geomentry().contains(e.x, e.y)){
+                comp.onAction(e);
+            }
+        }
     }
 
     public void setLayout(MLayout layout){
@@ -45,16 +58,9 @@ implements MContainer{
                 .drawRectangle(this.geomentry());
         ctx.reset();
         for(MComponent comp : this.children){
+            ctx.setZLevel(this.getZLevel() + 1);
             comp.paint(ctx);
             ctx.reset();
-        }
-    }
-
-    @Override
-    public void setXY(int x, int y){
-        super.setXY(x, y);
-        for(MComponent child : this.children){
-            child.setPosition(x + child.getX(), y + child.getY());
         }
     }
 
@@ -81,5 +87,20 @@ implements MContainer{
         comp.setZLevel(this.zLevel + 1);
         comp.setParent(this);
         this.children.add(comp);
+    }
+
+    @Override
+    public void layout() {
+        this.layout.layout();
+    }
+
+    @Override
+    public int getChildrenCount() {
+        return this.children.size();
+    }
+
+    @Override
+    public MComponent getChild(int i) {
+        return this.children.get(i);
     }
 }

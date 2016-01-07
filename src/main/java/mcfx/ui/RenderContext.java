@@ -1,6 +1,5 @@
 package mcfx.ui;
 
-import mcfx.MCFXHelper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -13,8 +12,9 @@ import java.awt.Rectangle;
 public final class RenderContext{
     private final Tessellator tess = Tessellator.getInstance();
     private final WorldRenderer rend = tess.getWorldRenderer();
-    private Color color = Color.WHITE;
+    private Color color;
     private float zLevel = 0.0F;
+    private float alpha = 1.0F;
     private float x, y;
 
     public RenderContext setZLevel(float z){
@@ -25,7 +25,7 @@ public final class RenderContext{
     public RenderContext drawRectangle(Rectangle geom){
         this.rend.startDrawingQuads();
         GlStateManager.disableTexture2D();
-        MCFXHelper.bindColor(this.color);
+        this.bindColor();
         this.rend.addVertex(this.x + geom.x, this.y + geom.y + geom.height, this.zLevel);
         this.rend.addVertex(this.x + geom.x + geom.width, this.y + geom.y + geom.height, this.zLevel);
         this.rend.addVertex(this.x + geom.x + geom.width, this.y + geom.y, this.zLevel);
@@ -35,10 +35,20 @@ public final class RenderContext{
         return this;
     }
 
+    private void bindColor(){
+        if(this.color != null){
+            int color = this.color.getRGB();
+            int r = (color >> 16 & 0xFF);
+            int g = (color >> 8 & 0xFF);
+            int b = (color & 0xFF);
+            this.rend.setColorRGBA(r, g, b, (int) (this.alpha * 255));
+        }
+    }
+
     public RenderContext drawImage(ResourceLocation loc, int x, int y, int width, int height){
         this.rend.startDrawingQuads();
-        MCFXHelper.bindColor(this.color);
         FMLClientHandler.instance().getClient().getTextureManager().bindTexture(loc);
+        this.bindColor();
         this.rend.addVertexWithUV(this.x + x, this.y + y + height, this.zLevel, 0, 1);
         this.rend.addVertexWithUV(this.x + x + width, this.y + y + height, this.zLevel, 1, 1);
         this.rend.addVertexWithUV(this.x + x + width, this.y + y, this.zLevel, 1, 0);
@@ -54,10 +64,16 @@ public final class RenderContext{
     }
 
     public void reset(){
-        this.color = Color.WHITE;
+        this.color = null;
         this.x = 0;
         this.y = 0;
         this.zLevel = 0;
+        this.alpha = 1.0F;
+    }
+
+    public RenderContext setAlpha(float alpha){
+        this.alpha = alpha;
+        return this;
     }
 
     public RenderContext setColor(Color c){

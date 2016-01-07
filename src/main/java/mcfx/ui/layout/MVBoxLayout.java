@@ -6,8 +6,6 @@ import mcfx.ui.MLayout;
 
 public final class MVBoxLayout
 extends MLayout {
-    private MComponent last;
-    private int lastY;
     private final int padding;
 
     public MVBoxLayout(MContainer container, int padding){
@@ -22,9 +20,17 @@ extends MLayout {
 
     @Override
     public void addComponent(MComponent comp) {
-        comp.setGeometry(0, this.lastY + (this.last == null ? 0 : this.last.geomentry().height + this.padding), comp.geomentry().width, comp.geomentry().height);
-        this.lastY = comp.geomentry().y;
-        this.last = comp;
         super.addComponent(comp);
+    }
+
+    @Override
+    public void layout(){
+        int compCount = this.container.getChildrenCount();
+        int y = 0;
+        for(int i = 0; i < compCount; i++){
+            MComponent comp = this.container.getChild(i);
+            comp.setGeometry(this.container.getX(), this.container.getY() + y, comp.getPreferredSize().width, comp.getPreferredSize().height);
+            y += comp.getPreferredSize().height + this.padding;
+        }
     }
 }
