@@ -24,7 +24,7 @@ implements MContainer,
     private final List<MComponent> children = new LinkedList<>();
     private MLayout layout = new MAbsoluteLayout(this);
     private RenderContext ctx = new RenderContext();
-    private Rectangle bounds = new Rectangle(0, 0, MCFXHelper.getMinecraftWidth() / 4, MCFXHelper.getMinecraftHeight() / 4);
+    private Rectangle bounds = new Rectangle(0, 0, MCFXHelper.getMinecraftWidth() / 3, MCFXHelper.getMinecraftHeight() / 3);
     private Insets insets = new Insets(0, 0, 0, 0);
 
     public void setLayout(MLayout layout){
